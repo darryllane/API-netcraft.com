@@ -36,7 +36,7 @@ class NetcraftAPI(object):
 
     def display_message(self, s):
         if (self._verbose):
-            print '[verbose] %s' % s
+            print '%s' % s
 
     def search(self, domain):
         res = []
@@ -52,14 +52,13 @@ class NetcraftAPI(object):
         cookies = {'netcraft_js_verification_response': challenge_cookie_value}
 
         req = s.get(url, cookies = cookies)
-        soup = BeautifulSoup(req.content)
+        soup = BeautifulSoup(req.content, "lxml")
 
         pattern = 'Found (\d+) site'
         number_results = re.findall(pattern, req.content)
 
         if (len(number_results) > 0 and number_results[0] != '0'):
             number_results = int(number_results[0])
-            self.display_message("Found %s results" % number_results)
             number_pages = int(math.ceil(number_results / 20)) + 1
 
             pattern = 'rel="nofollow">([a-z\.\-A-Z0-9]+)<FONT COLOR="#ff0000">'
@@ -76,7 +75,7 @@ class NetcraftAPI(object):
                 # print req.content
                 res.extend(subdomains)
                 for subdomain in subdomains:
-                    self.display_message('[!] Found: %s ' % subdomain)
+                    self.display_message('{}.{}' .format (subdomain, domain))
                 last_result = subdomains[-1]
             return res
         else:
