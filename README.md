@@ -23,6 +23,10 @@ Result is an array of all subdomains.
 
 Contributing
 =======
+Modifications have been made by myself but all this code is done by @PaulWebSec
+Modifications stop verbose output, subdomains and domain are the only items returned onto the screen.
+Example:
+subdomain.google.com
 
 Feel free to open issues, contribute and submit your Pull Requests. 
 You can also ping me on Twitter (@PaulWebSec)
